@@ -40,7 +40,7 @@ Solução Dia 7.: https://github.com/RogerioTonini/7_Days_of_Code_Alura-Python-P
 
 Anotações:
 
-1-) Layout dos arquivos (Todos os arquivos possuem o mesmo layout):
+1-) Estrutura de dados dos arquivos (Todos os arquivos possuem a mesma estrutura):
 2010-1 - id_emprestimo,codigo_barras,data_renovacao,data_emprestimo,data_devolucao,matricula_ou_siape,tipo_vinculo_usuario
 2010-2 - id_emprestimo,codigo_barras,data_renovacao,data_emprestimo,data_devolucao,matricula_ou_siape,tipo_vinculo_usuario
 2011-1 - id_emprestimo,codigo_barras,data_renovacao,data_emprestimo,data_devolucao,matricula_ou_siape,tipo_vinculo_usuario
@@ -85,3 +85,60 @@ Anotações:
             ***Importante: Os cabeçalhos dos arquivos também foram importados/concatenados, portando precisa ser feito um trabalho de limpeza dos dados.
         - Total Registros Duplicados....:
         - Total Registros Tratados......: 
+
+3-) Coluna: #11 - [localização] - Objetivo:
+    Os itens do acervo em uma biblioteca são organizados por um sistema de classificação de acordo com o respectivo tema. 
+    Existem diversos sistemas, mas este conjunto está de acordo com a CDU - Classificação Decimal Universal. 
+    Esta classificação é decimal, pois varia de acordo com a classe de cada assunto:
+
+        . 000 a 099: Generalidades. Ciência e conhecimento.
+        . 100 a 199: Filosofia e psicologia.
+        . 200 a 299: Religião.
+        . 300 a 399: Ciências sociais.
+        . 400 a 499: Classe vaga. Provisoriamente não ocupada.
+        . 500 a 599: Matemática e ciências naturais.
+        . 600 a 699: Ciências aplicadas.
+        . 700 a 799: Belas artes.
+        . 800 a 899: Linguagem. Língua. Linguística.
+        . 900 a 999: Geografia. Biografia. História.
+
+    Portanto, se um material tiver um código de localização 720, ele PERTENCE a classe geral de BELAS ARTES; 
+    se tiver um código 028, pertence a classe geral de “GENERALIDADES. CIÊNCIA E CONHECIMENTO.
+
+    Para isso, crie uma nova coluna com os valores da localização, para refletir a respectiva classe geral na CDU.
+
+    Você precisará ainda excluir alguns dados e modificar outros.
+    - A coluna [registro_sistema], por exemplo, não está fazendo sentido para essa análise, por isso você pode exclui-la.
+    - Já a coluna da matricula (“matricula_ou_siape”) não está com um formato muito legível. Transforme-a em formato String.
+
+3.1-) Estrutura de dados do arquivo DB_Emprestimo_Tratado.csv
+
++------------------------------------------------------------------------------------------------------------------------------------------+ 
+| #  | Column               | Dtype          | Descrição do Campo                         | Ação a ser realizada                           |
++------------------------------------------------------------------------------------------------------------------------------------------+ 
+| 0  | id_emprestimo        | int64          | ID do empréstimo                           |                                                |
+| 1  | codigo_barras        | object         | Código de barras do produto (livro)        |                                                |
+| 2  | data_renovacao       | datetime64[ns] | Data da renovação do empréstimo            |                                                |
+| 3  | data_emprestimo      | datetime64[ns] | Data inicial do empréstimo do exemplar     |                                                |
+| 4  | data_devolucao       | datetime64[ns] | Data da devolução do exemplar              |                                                |
+| 5  | matricula_ou_siape   | float64        | ID da matrícula/SIAPE do usuário           | Transformar a coluna para string               |
+| 6  | tipo_vinculo_usuario | object         | Tipo de vínculo do usuário                 |                                                |
+| 7  | id_exemplar          | int64          | ID do exemplar                             |                                                |
+| 8  | colecao              | object         | Tipo da coleção pertencente o exemplar     |                                                |
+| 9  | biblioteca           | object         | Qual o local físico está o exemplar        |                                                |
+| 10 | status_material      | object         | Situação em que se encontra o material     |                                                |
+| 11 | localizacao          | int64          | CDU - Classificação Decimal Universal      | Criar coluna CDU_exemplar, conforme requisitos |
+| 12 | registro_sistema     | int64          | Registro do sistema                        | EXCLUIR coluna                                 |
++------------------------------------------------------------------------------------------------------------------------------------------+ 
+
+3.2-) Solução:
+    a. Criar arquivo DB_CDU.csv, com a estrutura:
++----------------------------------------------------------------+ 
+| #  | Column         | Dtype  | Descrição do Campo              |
++----------------------------------------------------------------+ 
+| 0  | ID_Faixa_CDU   | int64  | ID da faixa CDU                 |
+| 1  | Inicio_Faixa   | int64  | Código inicial da Faixa CDU     |
+| 2  | Limite_Faixa   | int64  | Último código da faixa CDU      |
+| 3  | Nome_Faixa_CDU | object | Data da renovação do empréstimo |
++----------------------------------------------------------------+ 
+    b.
