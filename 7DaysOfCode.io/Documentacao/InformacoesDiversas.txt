@@ -141,4 +141,4 @@ Anotações:
 | 2  | Limite_Faixa   | int64  | Último código da faixa CDU      |
 | 3  | Nome_Faixa_CDU | object | Data da renovação do empréstimo |
 +----------------------------------------------------------------+ 
-    b.
+
